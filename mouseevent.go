@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build windows
 // +build windows
 
 package walk
@@ -47,6 +48,10 @@ func (e *MouseEvent) Attach(handler MouseEventHandler) int {
 
 func (e *MouseEvent) Detach(handle int) {
 	e.handlers[handle].handler = nil
+}
+
+func (e *MouseEvent) Clear() {
+	e.handlers = make([]mouseEventHandlerInfo, 0)
 }
 
 func (e *MouseEvent) Once(handler MouseEventHandler) {

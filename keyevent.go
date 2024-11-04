@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build windows
 // +build windows
 
 package walk
@@ -34,6 +35,10 @@ func (e *KeyEvent) Attach(handler KeyEventHandler) int {
 
 func (e *KeyEvent) Detach(handle int) {
 	e.handlers[handle].handler = nil
+}
+
+func (e *KeyEvent) Clear() {
+	e.handlers = make([]keyEventHandlerInfo, 0)
 }
 
 func (e *KeyEvent) Once(handler KeyEventHandler) {
